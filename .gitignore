@@ -10,3 +10,4 @@ tests/__pycache__/
 /*.md
 /designs/
 /marketing-assets/
+/wrangler.release.json

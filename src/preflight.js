@@ -1,7 +1,15 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 
 const resourceId = /^[a-f0-9]{32}$/i;
+
+export function prepareDeployment(config, environment) {
+  return {
+    ...config,
+    d1_databases: config.d1_databases?.map(database => ({ ...database, database_id: environment.D1_DATABASE_ID || database.database_id })),
+    kv_namespaces: config.kv_namespaces?.map(namespace => ({ ...namespace, id: environment.KV_NAMESPACE_ID || namespace.id }))
+  };
+}
 
 export function validateDeployment(config, environment) {
   const errors = [];
@@ -18,11 +26,16 @@ export function validateDeployment(config, environment) {
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   try {
-    const config = JSON.parse(readFileSync(new URL('../wrangler.jsonc', import.meta.url), 'utf8'));
+    const source = JSON.parse(readFileSync(new URL('../wrangler.jsonc', import.meta.url), 'utf8'));
+    const preparing = process.argv.includes('--prepare');
+    const config = preparing ? prepareDeployment(source, process.env) : source;
     const errors = validateDeployment(config, process.env);
     if (errors.length) {
       console.error(`Deployment blocked:\n${errors.map(error => `- ${error}`).join('\n')}`);
       process.exitCode = 1;
+    } else if (preparing) {
+      writeFileSync(new URL('../wrangler.release.json', import.meta.url), `${JSON.stringify(config, null, 2)}\n`, { flag: 'w', mode: 0o600 });
+      console.log('Release binding configuration generated. Confirm remote resources, migrations, Worker secret, domain, and release approvals separately.');
     } else {
       console.log('Local binding and build configuration validated. Confirm remote resources, migrations, Worker secret, domain, and release approvals separately.');
     }

@@ -1,0 +1,12 @@
+node_modules/
+.wrangler/
+tests/__pycache__/
+.dev.vars*
+.env*
+*.pem
+*.key
+/*.docx
+/*.txt
+/*.md
+/designs/
+/marketing-assets/

@@ -1,0 +1,20 @@
+{
+  "name": "african-open-repository-edge",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "migrate:local": "wrangler d1 migrations apply open-research-db --local",
+    "build": "wrangler deploy --dry-run --outdir .wrangler/tmp/deploy-check",
+    "deploy:check": "node src/preflight.js && npm run build",
+    "deploy": "npm run deploy:check && wrangler deploy",
+    "test": "node --test tests/index.test.js tests/deposit.test.js tests/preflight.test.js && python -m unittest discover -s tests -p test_*.py",
+    "lint": "node --check src/index.js && node --check src/interoperability.js && node --check src/preflight.js && node --check web/app.js && node --check tests/index.test.js && node --check tests/deposit.test.js && node --check tests/preflight.test.js"
+  },
+  "devDependencies": {
+    "wrangler": "^4.152.0"
+  },
+  "overrides": {
+    "undici": "7.30.1"
+  }
+}

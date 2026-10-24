@@ -1,0 +1,29 @@
+{
+  "name": "open-research-edge",
+  "main": "src/index.js",
+  "compatibility_date": "2025-01-01",
+  "assets": {
+    "directory": "./web",
+    "run_worker_first": ["/api/*", "/oai"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "open-research-db"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "EDGE_FEED_CACHE"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "R2_BUCKET",
+      "bucket_name": "research-assets"
+    }
+  ],
+  "vars": {
+    "OAI_ADMIN_EMAIL": "david.oke@i2sltd.tech"
+  }
+}

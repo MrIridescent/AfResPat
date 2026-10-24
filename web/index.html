@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f5f1e8">
+  <title>AfresPat | African Research and Patents</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="site-shell">
+    <header class="masthead">
+      <a class="brand" href="#" aria-label="AfresPat, browse records">
+        <span class="brand-mark" aria-hidden="true">A<span class="brand-slash">/</span>P</span>
+        <span class="brand-name">AfresPat<br><small>African Research and Patents</small></span>
+      </a>
+      <nav class="masthead-links" aria-label="Main navigation"><a href="#">Browse records</a><a href="#contribute">Contribute</a></nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section id="browse-view" aria-labelledby="page-title">
+        <div class="hero">
+          <div class="hero-main">
+            <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> An open reading space</p>
+            <h1 id="page-title">Knowledge<br>belongs <em>in view.</em></h1>
+          </div>
+          <div class="hero-aside">
+            <span class="section-number">01 / The library</span>
+            <p>Explore public research submissions and read the information available in each record. A place to look closely, across languages and disciplines.</p>
+          </div>
+        </div>
+
+        <section class="archive" aria-labelledby="archive-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">The collection</p>
+              <h2 id="archive-title">Browse the archive<span class="heading-period">.</span></h2>
+            </div>
+            <p class="section-index">Public records <span aria-hidden="true">↘</span></p>
+          </div>
+
+          <div class="browse-controls" role="search" aria-label="Filter loaded records">
+            <div class="control control-search">
+              <label for="search">Search loaded records</label>
+              <input id="search" type="search" placeholder="Search titles or record IDs" autocomplete="off">
+            </div>
+            <div class="control control-select">
+              <label for="kind-filter">Record type</label>
+              <select id="kind-filter"><option value="">All types</option></select>
+            </div>
+            <div class="control control-select">
+              <label for="language-filter">Language</label>
+              <select id="language-filter"><option value="">All languages</option></select>
+            </div>
+          </div>
+          <p class="filter-note">Search and filters apply to <strong>loaded records only</strong>. Load more pages to broaden your results.</p>
+
+          <div class="results-heading">
+            <h3>Records</h3>
+            <p id="result-count" aria-live="polite"></p>
+          </div>
+          <div id="list-status" class="state-message" role="status" aria-live="polite">Loading public records…</div>
+          <ol id="record-list" class="record-list" aria-label="Public research records"></ol>
+          <div id="page-actions" class="page-actions" hidden>
+            <button id="load-more" class="button-outline" type="button">Load next 20 records <span aria-hidden="true">↗</span></button>
+          </div>
+        </section>
+      </section>
+
+      <section id="detail-view" class="detail-view" aria-labelledby="detail-title" hidden>
+        <a class="back-link" href="#"><span aria-hidden="true">←</span> Back to archive</a>
+        <div id="detail-status" class="state-message" role="status" aria-live="polite"></div>
+        <article id="detail-content" hidden>
+          <div class="detail-header">
+            <p class="eyebrow">From the collection <span class="eyebrow-separator" aria-hidden="true">/</span> Public record</p>
+            <h1 id="detail-title"></h1>
+            <div id="detail-meta" class="detail-meta"></div>
+          </div>
+          <div class="detail-layout">
+            <aside class="detail-sidebar" aria-label="Record details">
+              <p class="section-number">Record information</p>
+              <dl id="detail-facts"></dl>
+            </aside>
+            <section class="translations" aria-labelledby="translations-title">
+              <p class="section-number">Read the record</p>
+              <h2 id="translations-title">Available translations<span class="heading-period">.</span></h2>
+              <div id="translation-list"></div>
+            </section>
+          </div>
+        </article>
+      </section>
+
+      <section class="contribute" id="contribute" aria-labelledby="contribute-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Contribute to the collection</p>
+            <h2 id="contribute-title">Share your work<span class="heading-period">.</span></h2>
+          </div>
+          <p class="contribute-intro">Create a local account to deposit research. New records stay private until a different curator approves them. Accounts are not identity-verified.</p>
+        </div>
+        <div id="account-guest" class="account-grid">
+          <form id="register-form" class="panel">
+            <h3>Create an author account</h3>
+            <label for="register-email">Email</label>
+            <input id="register-email" type="email" autocomplete="email" required>
+            <label for="register-password">Password (at least 12 characters)</label>
+            <input id="register-password" type="password" autocomplete="new-password" minlength="12" maxlength="128" required>
+            <button type="submit" class="button-outline">Register</button>
+          </form>
+          <form id="login-form" class="panel">
+            <h3>Sign in</h3>
+            <label for="login-email">Email</label>
+            <input id="login-email" type="email" autocomplete="email" required>
+            <label for="login-password">Password</label>
+            <input id="login-password" type="password" autocomplete="current-password" required>
+            <button type="submit" class="button-outline">Sign in</button>
+          </form>
+        </div>
+        <div id="account-member" hidden>
+          <div class="member-bar"><p id="member-identity"></p><button id="logout-button" class="button-outline" type="button">Sign out</button></div>
+          <div class="account-grid">
+            <form id="deposit-form" class="panel">
+              <h3>Deposit a record</h3>
+              <label for="deposit-kind">Record type</label>
+              <select id="deposit-kind"><option value="research">Research</option><option value="dataset">Dataset</option></select>
+              <label for="deposit-language">Primary language code</label>
+              <input id="deposit-language" value="en" required maxlength="20" placeholder="en, sw, yo…">
+              <label for="deposit-title">Title</label>
+              <input id="deposit-title" required maxlength="240">
+              <label for="deposit-abstract">Abstract</label>
+              <textarea id="deposit-abstract" rows="5" maxlength="10000" required></textarea>
+              <label for="deposit-source">Source URL (optional, HTTPS)</label>
+              <input id="deposit-source" type="url" placeholder="https://…">
+              <label for="deposit-file">PDF (optional, 10 MiB maximum)</label>
+              <input id="deposit-file" type="file" accept="application/pdf,.pdf">
+              <button type="submit" class="button-outline">Submit privately for review</button>
+            </form>
+            <div class="panel">
+              <h3>Your deposits</h3>
+              <p class="panel-note">Only you can see pending deposits. A curator cannot approve their own record.</p>
+              <div id="my-status" role="status" aria-live="polite"></div>
+              <ul id="my-list" class="work-list"></ul>
+            </div>
+          </div>
+          <section id="curation-panel" class="panel curation-panel" hidden aria-labelledby="curation-title">
+            <h3 id="curation-title">Curator review</h3>
+            <p class="panel-note">Only non-traditional-knowledge deposits by other authors appear here. Review the metadata before approving it for public discovery.</p>
+            <div id="curation-status" role="status" aria-live="polite"></div>
+            <ul id="curation-list" class="work-list"></ul>
+          </section>
+        </div>
+        <p id="account-status" class="account-status" role="status" aria-live="polite"></p>
+        <details class="setup-details"><summary>Set up the first curator</summary>
+          <p>Requires a server-side <code>CURATOR_SETUP_TOKEN</code> of at least 32 characters. This one-time setup is available only before a curator account exists. Keep the token private.</p>
+          <form id="bootstrap-form" class="panel">
+            <label for="bootstrap-email">Curator email</label><input id="bootstrap-email" type="email" autocomplete="email" required>
+            <label for="bootstrap-password">Password (at least 12 characters)</label><input id="bootstrap-password" type="password" autocomplete="new-password" minlength="12" maxlength="128" required>
+            <label for="bootstrap-token">Setup token</label><input id="bootstrap-token" type="password" autocomplete="off" required>
+            <button type="submit" class="button-outline">Create first curator</button>
+          </form>
+        </details>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>AfresPat · African Research and Patents</span>
+      <a href="mailto:david.oke@i2sltd.tech">Contact the repository</a>
+      <span>Public records · Open reading</span>
+      <a href="#main">Back to top ↑</a>
+    </footer>
+  </div>
+</body>
+</html>
